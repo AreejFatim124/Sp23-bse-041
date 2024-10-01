@@ -4,11 +4,17 @@
     text-decoration: none;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    
 }
 
 body {
-    background-color: white;
-    color: #333;
+    background-image: url(islambad.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-color:#ffffff;
+    color: #7e8085;
 }
 
 header {
@@ -36,11 +42,13 @@ nav ul {
 
 nav ul li {
     margin-left: 30px;
+    
 }
 
 nav ul li a {
     color: #2C4154;
     font-weight: 500;
+    font-size: 14px;
 }
 nav ul li a:hover{
     color: #ff8c00;
@@ -63,10 +71,11 @@ nav ul li a:hover{
 }
 
 .btn-call {
-    border-color: #ff8c00;
     background-color: #fff;
     color: #ff8c00;
     font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #ff8c00;
 }
 
 .btn-order:hover{
@@ -76,6 +85,9 @@ nav ul li a:hover{
 
 .btn-download:hover{
     background-color: #2c4154;
+}
+.btn-download i{
+    margin-right: 2px;
 }
 
 .btn-call:hover{
@@ -104,6 +116,9 @@ nav ul li a:hover{
     padding-top: 150px;
     
 }
+.btn-call i{
+    margin-right: 3px
+}
 
 .hero-content p {
     color: #ffffff;
@@ -119,6 +134,8 @@ nav ul li a:hover{
     align-items: center;
 }
 #app-features {
+    background-color: #fafafa;
+    color: #7e8085;
     padding-top: 50px ;
 }
 
@@ -196,8 +213,9 @@ nav ul li a:hover{
 
     }
 }
+
 .download {
-    background-image: url("islambad.jpeg");
+    backface-visibility: visible;
     background-color: #062c43c7;
     background-size: cover;
     background-position: center;
@@ -265,9 +283,9 @@ nav ul li a:hover{
 
 }
 .how_it_works{
+    background-color: #fafafafa;
     padding: 30px 0px 80px;
-    margin: 0px 0px 50px;
-    color: white
+    color: #7e8085
 
 }
 .heading span{
@@ -276,6 +294,8 @@ nav ul li a:hover{
 }
 
 .mobile-frame {
+    color: #7e8085;
+    background-color: #fafafa;
     position:relative;
     width: 100%;
     height: 100%;
@@ -319,6 +339,9 @@ nav ul li a:hover{
     border-color:#ecbd40 ;
     background-color: #ecbd40;
 }
+.button li a{
+    color: white;
+}
 .button li:hover{
     background-color: #ff8c00;
 
@@ -334,19 +357,22 @@ footer {
 }
 
 .footer-container {
+    margin-left: 120px;
+    align-items: center;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 0 50px;
 }
 
-.footer-section {
+.footer-section ,.footer-links{
     padding: 50px 0;
     flex: 1;
+    width: fit-content;
     margin-right: 20px;
 }
 
-.footer-section h5 {
+.footer-section h5 ,.footer-links h5{
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 20px;
@@ -370,23 +396,32 @@ footer {
     color: #ff7f00;
 }
 
-.footer-section .social-icon {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    vertical-align: middle;
-    border-radius: 50%;
 
+.footer-section a i{
+    font-size: 20px;
+    margin-right: 10px;
 }
 
 .footer-bottom {
     text-align: center;
-    margin-top: 30px;
     border-top: 1px solid white;
     padding-top: 20px;
     padding-bottom: 20px;
 
 }
+.footer-links i{
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.fa-facebook{
+    color: #3b5998;
+
+}
+.fa-linkedin{
+    color: #55acee;
+}
+
 
 .footer-bottom p {
     color: #888;
