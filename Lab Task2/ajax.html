@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJAX CRUD with JSONPlaceholder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ajax.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Posts Management</h1>
+
+    <div id="postList"></div>
+
+    <h2>Add New Post</h2>
+    <form id="postForm">
+      <input type="text" id="title" placeholder="Enter post title" required>
+      <textarea id="body" rows="5" placeholder="Enter post content" required></textarea>
+      <button type="submit">Create Post</button>
+    </form>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

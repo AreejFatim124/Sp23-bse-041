@@ -1,0 +1,106 @@
+
+body{
+    color: #7e8085;
+    width: 100vw;
+}
+.content-overlay {
+    background-image: url(islambad.jpeg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    min-height: 500px;
+    color: #fff;
+}
+
+
+.backgrd{
+    background-image: url(background.jpeg);
+    height: 95vh;
+    width: 100%;
+    background-size: cover;   
+
+}
+.buttonstyle{
+    background-color: #ff8c00;
+    color: white
+}
+.buttonstyle2{
+    border: 2px solid #ff8c00;
+    color: #2c4154;
+}
+.activetab{
+    color: #ff8c00;
+}
+button:hover{
+    background-color: #2c4154;
+    color: #ff8c00;
+}
+button .orange{
+    color:#ff8c00;
+}
+.orange:hover{
+    background-color: #ff8c00;
+    color: white;
+
+}
+.stylecard {
+    width: 18rem; 
+    height: 316.6px; 
+    box-shadow: 3px 1px 5px #eaeaeab5;
+    text-align: center;
+    h5{
+        color: #e4ae32;
+    }
+}
+
+.dotted-border {
+    border: 2px dashed black; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+}
+
+.card-title {
+    font-size: 1.2rem; 
+}
+
+.card-text {
+    font-size: 0.9rem; 
+}
+footer {
+    background-color: #f9e9d2;
+}
+footer a {
+    text-decoration: none;
+    color:#7e8085;
+}
+
+footer a:hover {
+    color: #ff7f00;
+}
+
+footer i {
+    font-size: 20px;
+}
+
+.footer-bottom p {
+    color: #888;
+}
+
+
+
+/* @keyframes up-and-down {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px); 
+    }
+    100% {
+        transform: translateY(0); 
+    }
+}
+
+.animated-box {
+    animation: up-and-down 4s infinite; 
+} */
