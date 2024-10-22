@@ -12,8 +12,6 @@ body{
     min-height: 500px;
     color: #fff;
 }
-
-
 .backgrd{
     background-image: url(background.jpeg);
     height: 95vh;
@@ -54,6 +52,21 @@ button .orange{
     }
 }
 
+.iphoneimage {
+    background-image: url('iphone-frame.png');
+    height: 700px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 350px; 
+}
+
+.iphoneimage img {
+    max-height: 90%;
+    max-width: 85%;
+    /* object-fit: contain; */
+    /* flex-wrap: wrap; */
+}
+
 .dotted-border {
     border: 2px dashed black; 
     padding: 10px; 
@@ -89,7 +102,7 @@ footer i {
 
 
 
-/* @keyframes up-and-down {
+ @keyframes up-and-down {
     0% {
         transform: translateY(0);
     }
@@ -103,4 +116,4 @@ footer i {
 
 .animated-box {
     animation: up-and-down 4s infinite; 
-} */
+} 
