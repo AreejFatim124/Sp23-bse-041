@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+hr{
+    text-shadow:rgb(205, 205, 205); ;
+}
 body {
     font-family:'Times New Roman', Times, serif;
     font-size: 14px;
@@ -24,7 +27,7 @@ i{
     padding: 10px;
     
 }
-p{
+.left-column p{
     margin-bottom: 20px;
 }
 h2{
