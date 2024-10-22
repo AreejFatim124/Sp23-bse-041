@@ -12,6 +12,10 @@ body {
     font-size: 14px;
     line-height: 1.6;
     background-color: #f4f4f4;
+    color: grey;
+}
+strong{
+    color: black;
 }
 .top-left{
     align-content: center;
