@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const postForm = document.getElementById('postForm');
   const titleInput = document.getElementById('title');
   const bodyInput = document.getElementById('body');
-
+  const view= document.querySelector('.view');
   const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
   // Function to fetch and display posts (READ)
@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
   }
+  
+  view.addEventListener("click",()=>{
+    postList.style="visibitity:visible";
+    fetchPosts();
+  })
+  
 
   // Function to create a new post (CREATE)
   postForm.addEventListener('submit', (e) => {
