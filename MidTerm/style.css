@@ -102,3 +102,6 @@ h2{
     padding: 0;
 
 }
+.hobbies i, .qualities i{
+    font-size: smaller;
+}
