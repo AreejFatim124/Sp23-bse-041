@@ -7,11 +7,11 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/cv", (req, res) => {
-  res.render("CV");
+  res.render('CV');
 });
 
 app.get("/", (req, res) => {
-  res.render("GourmetFoods");
+  res.render('GourmetFoods');
 });
 
 app.listen(5500, () => {
