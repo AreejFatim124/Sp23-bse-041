@@ -8,7 +8,7 @@
 }
 
 body {
-    background-image: url("/public/images/gourmetFoods/islambad.jpeg");
+    background-image: url("/images/gourmetFoods/islambad.jpeg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -96,7 +96,7 @@ nav ul li a:hover{
 }
 #home {
     display: flex;
-    background-image: url('/public/images/gourmetFoods/background.jpeg');
+    background-image: url('/images/gourmetFoods/background.jpeg');
     background-size: cover;
     padding: 100px 40px;
     text-align: center;

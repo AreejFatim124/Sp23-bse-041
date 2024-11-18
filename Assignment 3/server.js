@@ -6,7 +6,7 @@ app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 
-app.get("/cv", (req, res) => {
+app.get("/CV", (req, res) => {
   res.render('CV');
 });
 
