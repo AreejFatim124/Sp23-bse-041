@@ -14,6 +14,6 @@ app.get("/", (req, res) => {
   res.render('GourmetFoods');
 });
 
-app.listen(5500, () => {
-  console.log("Server started at localhost:5500");
+app.listen(2500, () => {
+  console.log("Server started at localhost:2500");
 });
