@@ -5,9 +5,6 @@ app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 
-app.get("/CV", (req, res) => {
-  res.render('CV');
-});
 app.use(expressLayouts);
 app.get("/", (req, res) => {
   res.render('GourmetFoods');
