@@ -4,7 +4,7 @@ body{
     width: 100vw;
 }
 .content-overlay {
-    background-image: url(islambad.jpeg);
+    background-image: url(images/islambad.jpeg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -13,7 +13,7 @@ body{
     color: #fff;
 }
 .backgrd{
-    background-image: url(background.jpeg);
+    background-image: url(images/background.jpeg);
     height: 95vh;
     width: 100%;
     background-size: cover;   
@@ -53,7 +53,7 @@ button .orange{
 }
 
 .iphoneimage {
-    background-image: url('iphone-frame.png');
+    background-image: url('images/iphone-frame.png');
     height: 700px;
     background-repeat: no-repeat;
     background-size: contain;
