@@ -10,6 +10,9 @@ app.get("/", (req, res) => {
   res.render('GourmetFoods');
 });
 
+app.get("/viewProducts", (req, res) => {
+  res.render('ViewProducts');
+});
 
 const PORT=9900;
 app.listen(PORT, () => {
