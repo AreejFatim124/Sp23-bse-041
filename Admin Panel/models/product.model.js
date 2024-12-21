@@ -9,5 +9,5 @@ let productschema = new mongoose.Schema({
     isFeatured : {type: Boolean, default: false}
 })
 
-let Product = mongoose.model("Product",productschema);
-module.exports = Product
+let product = mongoose.model("product",productschema);
+module.exports = product

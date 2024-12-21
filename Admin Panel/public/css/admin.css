@@ -1,0 +1,14 @@
+body {
+    background-color: #f5f5f5;
+  }
+  
+  .list-group-item:hover {
+    background-color: #2ecc71;
+    color: #2c3e50 !important;
+  }
+  
+  .accordion-button:not(.collapsed) {
+    background-color: #2ecc71;
+    color: #2c3e50 !important;
+  }
+  

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Foods - Login</title>
+    <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="form-container">
+    <div class="login-form"><img src="images/site_logo.png" alt="logo" class='logo'></div>
+
+    <!-- Tab Links  -->
+    <div class="nav">
+        <button type="button" class="tablinks choice active" onclick="openTab(event, 'Login')" id="defaultOpen">Login</button>
+        <button type="button" class="tablinks choice " onclick="openTab(event, 'SignUp')">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="Login" class="tabcontent">
+        <form action="#" method="post">
+            <div class="form-group">
+                <input type="text" placeholder="03XXXXXXXXX"  name="phone" >
+                <div class="error" id="loginPhoneError"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password" name="password" >
+                <div class="error" id="loginPasswordError"></div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="login-btn">Login<i class="fa-solid fa-arrow-right"></i></button>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+            <p>© Copyrights 2023 All Rights Reserved.</p>
+        </form>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div id="SignUp" class="tabcontent" style="display: none;">
+        <form action="#" method="post" >
+            <div class="form-group">
+                <input type="text" placeholder="Username" name="username" >
+                <div class="error" id="signUpUsernameError"></div>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="First Name" name="first_name" >
+                <div class="error" id="signUpFirstNameError"></div>
+
+                <input type="text" placeholder="Last Name" name="last_name" >
+                <div class="error" id="signUpLastNameError"></div>
+
+            </div>
+            <div class="form-group">
+                <select name="gender" >
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="error" id="signUpGenderError"></div>
+            </div>
+            <div class="form-group">
+                <input type="date" name="date">
+                <div class="error" id="signUpDOBError"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password" name="password" >
+                <div class="error" id="signUpPasswordError"></div>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" placeholder="Confirm Password" name="confirm_password"  > 
+                <div class="error" id="signUpConfirmPasswordError"></div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="login-btn">Verify<i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <p>© Copyrights 2023 All Rights Reserved.</p>
+        </form>
+    </div>
+
+</div>
+<script src="../js/form.js"></script>
+</body>
+</html>

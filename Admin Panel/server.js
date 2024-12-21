@@ -29,19 +29,26 @@ app.get("/", (req, res) => {
   res.render("WebsitePages/ClientSide/landingpage");
 });
 
-app.get("/PlaceOrder", async (req, res) => {
-  const Products = require("./models/products.models");
+app.get("/placeOrder", async (req, res) => {
+  const products = require("./models/product.model");
   try {
-    const product = await Products.find();
-    res.render("WebsitePages/ClientSide/placeOrder", { product });
+    const product = await products.find();
+    res.render("WebsitePages/ClientSide/placeOrder", { product ,layout:"productsLayout.ejs"});
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).send("Error fetching products");
   }
 });
 
+app.get("/login", (req, res) => {
+  res.render("WebsitePages/ClientSide/loginsignup",{layout:false});
+});
+
+
+
+
 // Start the server
-const PORT=9999;
+const PORT=5789;
 app.listen(PORT, () => {
   console.log(`Server started at location: ${PORT}`);
 });
