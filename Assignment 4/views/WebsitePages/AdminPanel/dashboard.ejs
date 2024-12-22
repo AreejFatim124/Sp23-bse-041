@@ -1,0 +1,96 @@
+<style>
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    padding: 2rem;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    color: #495057;
+    font-weight: 600;
+}
+
+.card-text {
+    color: #ff8c00;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #ff8c00;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.5rem 0;
+    color: #6c757d;
+}
+
+.bi {
+    margin-right: 0.5rem;
+}
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Dashboard Cards or Widgets -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Products</h5>
+                    <p class="card-text"><%= products.length %></p>
+                    <a href="/admin/products" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Categories</h5>
+                    <p class="card-text"><%= categories.length %></p>
+                    <a href="/admin/viewcatagories" class="btn btn-primary">View Categories</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example: Recent Activities or Statistics -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Products</h5>
+                    <ul class="list-group">
+                        <% products.slice(0, 5).forEach(function(product) { %>
+                            <li class="list-group-item">
+                                <%= product.title %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                    <a href="/admin/products" class="btn btn-primary mt-2">View All Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
