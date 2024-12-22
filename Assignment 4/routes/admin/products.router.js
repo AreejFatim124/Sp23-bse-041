@@ -27,9 +27,24 @@ router.get("/admin/dashboard", async (req, res) => {
 
 // Product Routes
 router.get("/admin/products", async (req, res) => {
-    let products = await Product.find();
-    res.render("WebsitePages/AdminPanel/products", { layout: "adminLayout.ejs", products });
+    const { searchQuery } = req.query;
+    const searchOptions = searchQuery
+        ? {
+            $or: [
+                { title: new RegExp(searchQuery, "i") },
+                { description: new RegExp(searchQuery, "i") },
+            ],
+        }
+        : {};
+
+    let products = await Product.find(searchOptions);
+    res.render("WebsitePages/AdminPanel/products", {
+        layout: "adminLayout.ejs",
+        products,
+        searchQuery, // Pass the query back to the view for display
+    });
 });
+
 
 router.get("/admin/products/create", (req, res) => {
     res.render("WebsitePages/AdminPanel/createProduct", { layout: "adminLayout.ejs" });
@@ -51,7 +66,6 @@ router.get("/admin/products/edit/:id", async (req, res) => {
 router.post("/admin/products/edit/:id", async (req, res) => {
     let product = await Product.findById(req.params.id);
     product.title = req.body.title;
-    product.source = req.body.source;
     product.description = req.body.description;
     product.price = req.body.price;
     product.quantity=req.body.quantity,

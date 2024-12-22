@@ -31,18 +31,72 @@ app.get("/", (req, res) => {
 });
 
 app.get("/placeOrder", async (req, res) => {
-  const products = require("./models/product.model");
-  const categories = require("./models/category.model");
+  const Product = require("./models/product.model");
+  const Category = require("./models/category.model");
+
+  const searchQuery = req.query.searchQuery || ''; // Extract the search query from the URL
+  const isFeatured = req.query.isFeatured; // Extract the featured filter (true or false)
+  const sortBy = req.query.sortBy; // Extract the sorting option
+  const page = parseInt(req.query.page) || 1; // Default to page 1
+  const limit = 8; // Number of products per page
+  const skip = (page - 1) * limit; // Skip the previous pages' items
 
   try {
-    const product = await products.find();
-    const category=await categories.find();
-    res.render("WebsitePages/ClientSide/placeOrder", { product,category ,layout:"productsLayout.ejs"});
+      // Define search options
+      const searchOptions = {};
+
+      // Add search query filter if present
+      if (searchQuery) {
+          searchOptions.$or = [
+              { title: new RegExp(searchQuery, 'i') },
+              { description: new RegExp(searchQuery, 'i') },
+          ];
+      }
+
+      // Add featured filter if present
+      if (isFeatured !== undefined) {
+          searchOptions.isFeatured = isFeatured === 'true'; // Convert to boolean
+      }
+
+      // Determine the sorting order based on the "sortBy" parameter
+      let sortOptions = {};
+      if (sortBy === 'highToLow') {
+          sortOptions = { price: -1 }; // Sort by price in descending order (high to low)
+      } else if (sortBy === 'lowToHigh') {
+          sortOptions = { price: 1 }; // Sort by price in ascending order (low to high)
+      }
+
+      // Fetch filtered, sorted products with pagination
+      const products = await Product.find(searchOptions)
+          .sort(sortOptions)
+          .skip(skip)
+          .limit(limit);
+
+      // Get total product count for pagination
+      const totalProducts = await Product.countDocuments(searchOptions);
+      const totalPages = Math.ceil(totalProducts / limit);
+
+      // Fetch all categories
+      const categories = await Category.find();
+
+      // Pass data to the template
+      res.render("WebsitePages/ClientSide/placeOrder", {
+          product: products,
+          category: categories,
+          searchQuery,
+          isFeatured,
+          sortBy,
+          currentPage: page,
+          totalPages,
+          layout: "productsLayout.ejs",
+      });
   } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).send("Error fetching products");
+      console.error("Error fetching products:", error);
+      res.status(500).send("Error fetching products");
   }
 });
+
+
 
 app.get("/login", (req, res) => {
   res.render("WebsitePages/ClientSide/loginsignup",{layout:false});
