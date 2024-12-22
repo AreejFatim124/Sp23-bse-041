@@ -6,6 +6,7 @@ let productschema = new mongoose.Schema({
     description : String,
     picture: String,
     price : Number,
+    quantity:Number,
     isFeatured : {type: Boolean, default: false}
 })
 

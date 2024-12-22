@@ -16,171 +16,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .form-title {
-            color: var(--text-color);
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .form-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(to right, #FF7E5F, #FFB88C);
-            border-radius: 2px;
-        }
-
-        .form-label {
-            color: #6B4226;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-control {
-            border: linear-gradient(135deg, #FF7E5F 0%, #FFB88C 100%);;
-            border-radius: 10px;
-            padding: 12px 20px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: #FF7E5F;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
-        }
-
-        .form-control::placeholder {
-            color: #a0aec0;
-        }
-
-        .btn-custom {
-            background:linear-gradient(to right, #FF7E5F, #FFB88C);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            padding: 12px 25px;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-custom:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transition: all 0.5s ease;
-        }
-
-        .btn-custom:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
-            background:linear-gradient(to right, #FF7E5F, #FFB88C);
-        }
-
-        .btn-custom:hover:before {
-            left: 100%;
-        }
-
-        .custom-file-input {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .custom-file-input input[type=file] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .custom-file-input .file-label {
-            border: 2px solid #e2e8f0;
-            display: block;
-            padding: 12px 20px;
-            cursor: pointer;
-            border-radius: 10px;
-            width: 100%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .custom-file-input:hover .file-label {
-            border-color:#FF7E5F;
-        }
-
-        .form-check-input {
-            width: 1.25em;
-            height: 1.25em;
-            margin-top: 0.25em;
-            vertical-align: top;
-            background-color: #fff;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            border: 1px solid rgba(0, 0, 0, 0.25);
-            appearance: none;
-            transition: all 0.3s ease;
-        }
-
-        .form-check-input:checked {
-            background-color: #FF7E5F;
-            border-color: #FF7E5F;
-        }
-
-        .form-check-input:focus {
-            border-color: #FF7E5F;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
-        }
-
-        .invalid-feedback {
-            color: #e53e3e;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        @keyframes formAppear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card-form {
-            animation: formAppear 0.5s ease-out;
-        }
-    </style>
-</head>
-
+            </style>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -222,6 +58,19 @@
                             </div>
                             <div class="invalid-feedback">
                                 Please enter a valid price.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="quantity" class="form-label">
+                                Quantity
+                            </label>
+                            <div class="input-group">
+                                <input type="number" id="quantity" name="quantity" class="form-control" required
+                                    min="1"  placeholder="0">
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter a valid number.
                             </div>
                         </div>
 

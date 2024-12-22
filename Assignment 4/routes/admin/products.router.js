@@ -54,6 +54,7 @@ router.post("/admin/products/edit/:id", async (req, res) => {
     product.source = req.body.source;
     product.description = req.body.description;
     product.price = req.body.price;
+    product.quantity=req.body.quantity,
     product.isFeatured = Boolean(req.body.isFeatured);
     await product.save();
     return res.redirect("/admin/products");
