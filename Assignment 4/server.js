@@ -22,6 +22,8 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use(flash());
+
 app.use(session(
   { secret: "secret", resave: false, saveUninitialized: false }
 ));

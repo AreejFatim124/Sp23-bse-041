@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 
 // Import user model and authMiddleware
 const User = require("../../models/user.model");
-const authMiddleware = require("../../middleware/auth"); // Assuming authMiddleware is in the middleware folder
 
 // Register Route
 router.post("/register", async (req, res) => {
@@ -66,7 +65,6 @@ router.post("/login", async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
     });
-
     if (user.role === "admin") {
       res.status(200).redirect("/admin/dashboard")} 
     else {
@@ -91,9 +89,6 @@ router.post("/logout", (req, res) => {
 
     // Clear the user session
     req.session.user = null;
-
-    // Flash a success message
-    req.flash("success", "Successfully logged out.");
 
     // Redirect to the login page
     res.redirect("/login");
