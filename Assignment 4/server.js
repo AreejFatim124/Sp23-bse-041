@@ -126,7 +126,7 @@ app.get("/register", (req, res) => {
 });
 
 // Start the server
-const PORT=8642;
+const PORT=8888;
 app.listen(PORT, () => {
   console.log(`Server started at location: ${PORT}`);
 });

@@ -1,67 +1,22 @@
 const jwt = require("jsonwebtoken");
 
-// Middleware to authenticate access tokens
-exports.authenticateAccessToken = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   try {
+    // Check for token in cookies
     const token = req.cookies.accessToken;
 
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized - No token provided" });
+      return res.status(401).send({ message: "Authentication required" });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(403).json({ message: "Forbidden - Invalid token" });
-      }
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Store the decoded user information in the request
 
-      req.user = decoded; // Attach user data to request
-      next();
-    });
+    next(); // Proceed to the next middleware or route handler
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(403).send({ message: "Invalid or expired token" });
   }
 };
 
-exports.isAuthenticated = (req, res, next) => {
-  if (req.session && req.session.user) {
-    req.user = req.session.user;
-    return next();
-  }
-  res.redirect('/login');
-};
-
-
-// Middleware to verify refresh tokens
-exports.verifyRefreshToken = (req, res, next) => {
-  const refreshToken = req.cookies.refreshToken;
-
-  if (!refreshToken) return res.status(403).json({ message: "Refresh token required" });
-
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Invalid or expired refresh token" });
-
-    req.user = user; // Attach user data to request
-    next();
-  });
-};
-
-// Function to generate tokens
-const generateTokens = (user) => {
-  const accessToken = jwt.sign(
-    { id: user._id, role: user.role },
-    process.env.JWT_SECRET,
-    { expiresIn: '15m' } // 15 minutes
-  );
-
-  const refreshToken = jwt.sign(
-    { id: user._id, role: user.role },
-    process.env.REFRESH_TOKEN_SECRET, // Use the correct secret for refresh tokens
-    { expiresIn: '7d' } // 7 days
-  );
-
-  return { accessToken, refreshToken };
-};
-
-// Export the generateTokens function
-exports.generateTokens = generateTokens;
+module.exports = authMiddleware;
