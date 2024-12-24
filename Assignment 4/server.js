@@ -4,10 +4,8 @@ const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const session = require('express-session');
 const flash = require('connect-flash');
-
-const EventEmitter = require('events');
-const Bus = new EventEmitter();
-Bus.setMaxListeners(20); // Increase the limit to 20
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -19,21 +17,23 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json()); // Middleware to parse JSON requests
 
-// Set up session middleware
-app.use(session({
-    secret: 'your_secret_key', // Replace with your own secret
-    resave: false,
-    saveUninitialized: true
+app.use(cors({
+  origin: "http://localhost:8642",
+  credentials: true,
 }));
 
-// Set up flash middleware
-app.use(flash());
+app.use(session(
+  { secret: "secret", resave: false, saveUninitialized: false }
+));
+
+app.use(cookieParser());
 
 // Routes
+
 let productsRouter = require("./routes/admin/products.router");
 let userRouter = require("./routes/user/user.router");
-let cartRouter = require("./routes/cart.router"); // Import cart router
-let orderRouter = require("./routes/order.router"); // Import order router
+//let cartRouter = require("./routes/cart.router"); // Import cart router
+//let orderRouter = require("./routes/order.router"); // Import order router
 
 app.use(productsRouter);
 app.use(userRouter);
@@ -118,11 +118,11 @@ app.get("/placeOrder", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("WebsitePages/ClientSide/loginsignup",{layout:false});
+  res.render("login",{layout:false});
 });
 
 app.get("/register", (req, res) => {
-  res.render("WebsitePages/ClientSide/signup",{layout:false});
+  res.render("register",{layout:false});
 });
 
 // Start the server

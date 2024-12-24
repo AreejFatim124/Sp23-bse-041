@@ -16,30 +16,110 @@ const User = require("../../models/user.model");
 //     "role": String
 //   }
 // Register user
+
 router.post("/register", async (req, res) => {
     try {
       console.log("Request Body:", req.body); // Log the request body
       const { name, email, password, role } = req.body; 
       console.log("Received registration data:", req.body); // Log the received data
+
       if (!role || !["admin", "customer"].includes(role)) {
       console.error("Invalid role:", role); // Log invalid role
         return res.status(400).send({ message: "Invalid role" });
       }
+
       if (!name || !email || !password) {
         return res.status(400).send({ message: "Missing required fields" });
       }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = User.create({
+      name,
+      email,
+      password:hashedPassword,
+      role,
+})
   
-    //  const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new User({ name, email, password, role });
-      await user.save();
-  
-      req.flash('success_msg', 'User created successfully'); // Flash message for success
+      
       res.redirect('/login'); // Redirect to login page after successful registration
     } catch (error) {
       console.error(error);
       res.status(500).send({ message: "Internal Server Error" });
     }
   });
+
+
+  exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check user credentials
+    const user = await User.findOne({ email });
+
+    // If the user doesn't exist or the password is invalid
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      req.flash("error", "Invalid email or password.");
+      return res.redirect("/login");
+    }
+
+    // Fetch user's active status from the UserStatus collection
+    const userStatus = await UserStatus.findOne({ userId: user._id });
+
+    req.session.user = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      keywords: user.keywords
+    };
+    console.log(req.session.user);
+
+    // Generate tokens
+    const { accessToken, refreshToken } = generateTokens(user);
+
+    // Set tokens in cookies
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true, // Protect the cookie from JavaScript access
+      secure: process.env.NODE_ENV === "production", // HTTPS only in production
+      sameSite: "lax", // Allows cookies to be sent with cross-origin requests
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+
+    // Redirect based on user role
+    if (user.role === "admin") {
+      return res.render("users/admin_dashboard", { user });
+    } else if (user.role === "job_seeker") {
+      return res.render("users/jobSeeker_dashboard", { user });
+    } else if (user.role === "employer") {
+      return res.render("users/employer_dashboard", { user });
+    } else {
+      return res.status(400).json({ message: "Invalid role" });
+    }
+
+  } catch (error) {
+    req.flash("error", "Internal Server Error.");
+    res.redirect("/login");
+  }
+};
+
+// REFRESH TOKEN
+exports.refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) return res.status(401).json({ message: "No refresh token provided" });
+
+    const { user } = verifyRefreshToken(refreshToken);
+    const newAccessToken = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "15m" });
+
+    res.status(200).json({ accessToken: newAccessToken });
+  } catch (error) {
+    res.status(403).json({ message: "Invalid refresh token", error });
+  }
+};
 
 // Login user
 router.post("/login", async (req, res) => {
