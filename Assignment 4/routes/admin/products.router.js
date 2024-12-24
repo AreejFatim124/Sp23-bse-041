@@ -53,7 +53,7 @@ router.get("/admin/products/create", (req, res) => {
 router.post("/admin/products/create", upload.single("file"), async (req, res) => {
     let product = new Product(req.body);
     if (req.file) product.picture = req.file.filename;
-    product.isFeatured = Boolean(req.body.isFeatured);
+    product.isBoycotted = Boolean(req.body.isBoycotted);
     await product.save();
     res.redirect("/admin/products");
 });
@@ -69,7 +69,7 @@ router.post("/admin/products/edit/:id", async (req, res) => {
     product.description = req.body.description;
     product.price = req.body.price;
     product.quantity=req.body.quantity,
-    product.isFeatured = Boolean(req.body.isFeatured);
+    product.isBoycotted = Boolean(req.body.isBoycotted);
     await product.save();
     return res.redirect("/admin/products");
 });

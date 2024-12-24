@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gourmet Foods - Login</title>
-    <link rel="stylesheet" href="../css/form.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-
-<div class="form-container">
+<link rel="stylesheet" href="../css/form.css">
+    <div class="form-container">
+    <% if (messages.error_msg) { %>
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %>
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
     <div class="login-form"><img src="images/site_logo.png" alt="logo" class='logo'></div>
 
     <!-- Tab Links  -->
@@ -39,7 +35,7 @@
 
     <!-- Sign Up Form -->
     <div id="SignUp" class="tabcontent" style="display: none;">
-        <form action="/register" method="post">
+            <form action="/register" method="post" onsubmit="handleSignUp(event)">
             <div class="form-group">
                 <input type="text" placeholder="Name" name="name" required>
                 <div class="error" id="signUpNameError"></div>
@@ -53,13 +49,9 @@
                 <div class="error" id="signUpPasswordError"></div>
             </div>
             <div class="form-group">
-                <input type="password" placeholder="Confirm Password" name="confirm_password" required>
-                <div class="error" id="signUpConfirmPasswordError"></div>
-            </div>
-            <div class="form-group">
                 <select name="role" required>
                     <option value="" disabled selected>Select Role</option>
-                    <option value="employer">Customer</option>
+                    <option value="customer">Customer</option>
                     <option value="admin">Admin</option>
                 </select>
                 <div class="error" id="signUpRoleError"></div>

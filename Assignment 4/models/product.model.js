@@ -6,8 +6,8 @@ let productschema = new mongoose.Schema({
     picture: String,
     price : Number,
     quantity:Number,
-    isFeatured : {type: Boolean, default: false}
+    isBoycotted : {type: Boolean, default: false}
 })
-
 let product = mongoose.model("product",productschema);
+
 module.exports = product

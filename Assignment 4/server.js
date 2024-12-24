@@ -2,6 +2,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
+const session = require('express-session');
+const flash = require('connect-flash');
+
+const EventEmitter = require('events');
+const Bus = new EventEmitter();
+Bus.setMaxListeners(20); // Increase the limit to 20
 
 const app = express();
 
@@ -11,11 +17,26 @@ app.use(express.static("uploads"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.json()); // Middleware to parse JSON requests
+
+// Set up session middleware
+app.use(session({
+    secret: 'your_secret_key', // Replace with your own secret
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Set up flash middleware
+app.use(flash());
+
 // Routes
 let productsRouter = require("./routes/admin/products.router");
+let userRouter = require("./routes/user/user.router");
+let cartRouter = require("./routes/cart.router"); // Import cart router
+let orderRouter = require("./routes/order.router"); // Import order router
 
 app.use(productsRouter);
-
+app.use(userRouter);
 
 // MongoDB Connection
 require('dotenv').config();
@@ -35,7 +56,7 @@ app.get("/placeOrder", async (req, res) => {
   const Category = require("./models/category.model");
 
   const searchQuery = req.query.searchQuery || ''; // Extract the search query from the URL
-  const isFeatured = req.query.isFeatured; // Extract the featured filter (true or false)
+  const isBoycotted = req.query.isBoycotted; // Extract the featured filter (true or false)
   const sortBy = req.query.sortBy; // Extract the sorting option
   const page = parseInt(req.query.page) || 1; // Default to page 1
   const limit = 8; // Number of products per page
@@ -54,8 +75,8 @@ app.get("/placeOrder", async (req, res) => {
       }
 
       // Add featured filter if present
-      if (isFeatured !== undefined) {
-          searchOptions.isFeatured = isFeatured === 'true'; // Convert to boolean
+      if (isBoycotted !== undefined) {
+          searchOptions.isBoycotted = isBoycotted === 'true'; // Convert to boolean
       }
 
       // Determine the sorting order based on the "sortBy" parameter
@@ -84,7 +105,7 @@ app.get("/placeOrder", async (req, res) => {
           product: products,
           category: categories,
           searchQuery,
-          isFeatured,
+          isBoycotted: isBoycotted !== undefined ? isBoycotted : null, // Pass isBoycotted to the template
           sortBy,
           currentPage: page,
           totalPages,
@@ -96,17 +117,19 @@ app.get("/placeOrder", async (req, res) => {
   }
 });
 
-
-
 app.get("/login", (req, res) => {
   res.render("WebsitePages/ClientSide/loginsignup",{layout:false});
 });
 
+app.get("/register", (req, res) => {
+  res.render("WebsitePages/ClientSide/signup",{layout:false});
+});
 
 // Start the server
-const PORT=5789;
+const PORT=8642;
 app.listen(PORT, () => {
   console.log(`Server started at location: ${PORT}`);
 });
 
-
+//PASSWORD:Xtra@12345
+//SP23-BSE-041@CUILAHORE//ADMIN

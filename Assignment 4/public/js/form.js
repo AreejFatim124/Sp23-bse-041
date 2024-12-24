@@ -11,38 +11,32 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function validateLoginForm(event) {
-    // Prevent form submission
     event.preventDefault();
-    
-    // Clear previous error messages
-    document.getElementById("loginPhoneError").textContent = '';
+    document.getElementById("loginEmailError").textContent = '';
     document.getElementById("loginPasswordError").textContent = '';
-    
-    // Get form values
-    const phone = event.target.phone.value.trim();
-    const password = event.target.password.value.trim();
-    
-    let valid = true;
-    const phoneRegex = /^03\d{9}$/;
 
-    // Validate phone number
-    if (phone === "") {
-        document.getElementById("loginPhoneError").textContent = "*"; 
+    const email = event.target.email.value.trim();
+    const password = event.target.password.value.trim();
+
+    let valid = true;
+
+    // Validate email
+    if (email === "") {
+        document.getElementById("loginEmailError").textContent = "* Email is required.";
         valid = false;
-    } else if (!phoneRegex.test(phone)) {
-        document.getElementById("loginPhoneError").textContent = "Invalid format.";
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        document.getElementById("loginEmailError").textContent = "Invalid email format.";
         valid = false;
     }
-    
+
     // Validate password
     if (password === "") {
-        document.getElementById("loginPasswordError").textContent = "*";
+        document.getElementById("loginPasswordError").textContent = "* Password is required.";
         valid = false;
     }
-    
+
     if (valid) {
-        alert("Login successful!");
-        loginForm.submit();
+        event.target.submit();
     }
 }
 

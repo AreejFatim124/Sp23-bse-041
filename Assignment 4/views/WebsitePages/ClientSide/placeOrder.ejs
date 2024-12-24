@@ -43,10 +43,10 @@
             >
             
             <!-- Dropdown for Featured Filter -->
-            <select name="isFeatured" id="isFeatured">
+            <select name="isBoycotted" id="isBoycotted">
                 <option value="true">Status</option>
-                <option value="true" <%= isFeatured === 'true' ? 'selected' : '' %>>Not Pakistani Products</option>
-                <option value="false" <%= isFeatured === 'false' ? 'selected' : '' %>>Pakistani Products</option>
+                <option value="true" <%= isBoycotted === 'true' ? 'selected' : '' %>>Not Pakistani Products</option>
+                <option value="false" <%= isBoycotted === 'false' ? 'selected' : '' %>>Pakistani Products</option>
             </select>
             <select name="sortBy" id="sortBy">
                 <option value="">Price</option>
