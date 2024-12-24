@@ -15,7 +15,7 @@ router.post('/add-to-wishlist/:productId', authenticateAccessToken, async (req, 
 let wishlist = await WishlistModel.findOne({ userId });
 
     if (!wishlist) {
-wishlist = new WishlistModel({ userId, items: [] });
+    wishlist = new WishlistModel({ userId, items: [] });
     }
 
     // Check if the product is already in the wishlist
@@ -45,7 +45,7 @@ router.get('/wishlist', authenticateAccessToken, async (req, res) => {
   const wishlist = await WishlistModel.findOne({ userId }).populate('items.productId');
     
     if (!wishlist) {
-      return res.status(404).redirect("../wishlist");;
+return res.status(404).render("wishlist");
     }
 
     res.status(200).render('wishlist', { wishlist: wishlist.items });
@@ -65,7 +65,7 @@ router.post('/remove-from-wishlist/:productId', authenticateAccessToken, async (
 const wishlist = await WishlistModel.findOne({ userId });
 
     if (!wishlist) {
-      return res.status(404).redirect("../wishlist");
+      return res.status(404).render("../wishlist");
     }
 
     // Remove the product from the wishlist

@@ -6,6 +6,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const authenticateAccessToken = require("./middleware/auth");
 
 const app = express();
 
@@ -129,6 +130,19 @@ app.get("/placeOrder", async (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login",{layout:false});
 });
+
+
+
+app.get("/wishlist", authenticateAccessToken, (req, res) => {
+  const userId = req.user.id;
+  console.log(req.session.wishlist);
+
+  // Filter wishlist items for the logged-in user
+  const userWishlist = (req.session.wishlist || []).filter(item => item.userId === userId);
+
+  res.render("wishlist", { wishlist: userWishlist });
+});
+
 
 app.get("/register", (req, res) => {
   res.render("register",{layout:false});
