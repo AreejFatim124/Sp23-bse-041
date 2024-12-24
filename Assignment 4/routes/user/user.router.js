@@ -29,8 +29,8 @@ router.post("/register", async (req, res) => {
         return res.status(400).send({ message: "Missing required fields" });
       }
   
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new User({ name, email, password: hashedPassword, role });
+    //  const hashedPassword = await bcrypt.hash(password, 10);
+      const user = new User({ name, email, password, role });
       await user.save();
   
       req.flash('success_msg', 'User created successfully'); // Flash message for success
@@ -43,39 +43,35 @@ router.post("/register", async (req, res) => {
 
 // Login user
 router.post("/login", async (req, res) => {
-    try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(401).send({ message: "Invalid email or password" });
-      }
-      const isValidPassword = await bcrypt.compare(password, user.password);
-      if (!isValidPassword) {
-        return res.status(401).send({ message: "Invalid email or password" });
-      }
-      const token = jwt.sign({ userId: user._id, role: user.role }, process.env.SECRET_KEY, {
-        expiresIn: "1h",
-      });
-      if (user.role === "admin") {
-        res.status(200).send({ token, redirect: "/admin/dashboard" });
-      } else {
-        res.status(200).send({ token, redirect: "/placeOrder" });
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Internal Server Error" });
-    }
-  });
-
-// Logout user
-router.get("/logout", async (req, res) => {
   try {
-    req.logout();
-    res.status(200).send({ message: "User logged out successfully" });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).send({ message: "Invalid email or password" });
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return res.status(401).send({ message: "Invalid email or password" });
+    }
+
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET, // Ensure this is properly set
+      { expiresIn: "1h" }
+    );
+
+    if (user.role === "admin") {
+      res.status(200).send({ token, redirect: "/admin/dashboard" });
+    } else {
+      res.status(200).send({ token, redirect: "/placeOrder" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+
 
 module.exports = router;
