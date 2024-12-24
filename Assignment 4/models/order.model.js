@@ -17,15 +17,22 @@ const orderSchema = new mongoose.Schema({
             required: true
         }
     }],
+    total_amount: { type: Number, required: true },
     paymentMethod: {
         type: String,
         required: true,
         enum: ['cash'], // Only cash payment allowed
     },
+    status: {
+        type: String,
+        enum: ['Pending', 'Shipped', 'Delivered'],  // Enum to restrict status values
+        default: 'Pending',  // Default status is 'Pending'
+      },
+    address: String,
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+module.exports = mongoose.model("orders", orderSchema);

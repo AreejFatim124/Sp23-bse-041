@@ -24,6 +24,7 @@ app.use(cors({
 
 app.use(flash());
 
+
 app.use(session(
   { secret: "secret", resave: false, saveUninitialized: false }
 ));
@@ -34,12 +35,12 @@ app.use(cookieParser());
 
 let productsRouter = require("./routes/admin/products.router");
 let userRouter = require("./routes/user/user.router");
+
 //let cartRouter = require("./routes/cart.router"); // Import cart router
 //let orderRouter = require("./routes/order.router"); // Import order router
 
 app.use(productsRouter);
 app.use(userRouter);
-
 // MongoDB Connection
 require('dotenv').config();
 const connectionstring = process.env.MONGO_URI;
