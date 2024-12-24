@@ -8,15 +8,6 @@ const jwt = require("jsonwebtoken");
 // Import user model
 const User = require("../../models/user.model");
 
-// {
-//     "_id": ObjectId,
-//     "name": String,
-//     "email": String,
-//     "password": String (hashed password),
-//     "role": String
-//   }
-// Register user
-
 router.post("/register", async (req, res) => {
     try {
       console.log("Request Body:", req.body); // Log the request body
@@ -69,10 +60,8 @@ router.post("/register", async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      keywords: user.keywords
     };
-    console.log(req.session.user);
-
+    
     // Generate tokens
     const { accessToken, refreshToken } = generateTokens(user);
 
@@ -91,11 +80,9 @@ router.post("/register", async (req, res) => {
 
     // Redirect based on user role
     if (user.role === "admin") {
-      return res.render("users/admin_dashboard", { user });
-    } else if (user.role === "job_seeker") {
-      return res.render("users/jobSeeker_dashboard", { user });
-    } else if (user.role === "employer") {
-      return res.render("users/employer_dashboard", { user });
+      return res.redirect("admin/dashboard");
+    } else if (user.role === "customer") {
+      return res.redirect("/placeOrder");
     } else {
       return res.status(400).json({ message: "Invalid role" });
     }
